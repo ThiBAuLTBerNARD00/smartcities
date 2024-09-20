@@ -9,6 +9,7 @@ LED = machine.Pin(18, machine.Pin.OUT)
 
 littel = False
 greater = False
+#function executed after the event of clicking on the button is catched
 def bouton_presse(pin):
     print("bouton pressé")
     global val
@@ -16,7 +17,7 @@ def bouton_presse(pin):
     print("val",val)
     if val !=1:
         littel = False
-    
+#catch the event of pushing on the button  
 Button.irq(trigger=Pin.IRQ_FALLING,handler=bouton_presse)
 
 LED.value(1)
