@@ -1,56 +1,36 @@
 import machine
 from machine import Pin
-
 from time import sleep
+
+# Définition des pins pour la LED et le bouton poussoir
+button = Pin(16, Pin.IN)
+led = Pin(18, Pin.OUT)
+
+# Initialisation des variables
 val = 0
-Button = machine.Pin(16, machine.Pin.IN)
+blink_speed = 1  # Fréquence par défaut (0.5 Hz)
 
-LED = machine.Pin(18, machine.Pin.OUT)
-
-littel = False
-greater = False
-#function executed after the event of clicking on the button is catched
+# Fonction appelée à chaque pression du bouton
 def bouton_presse(pin):
-    print("bouton pressé")
     global val
-    val = val + 1
-    print("val",val)
-    if val !=1:
-        littel = False
-#catch the event of pushing on the button  
-Button.irq(trigger=Pin.IRQ_FALLING,handler=bouton_presse)
+    val += 1
+    if val > 2:  # Réinitialisation après la 3e pression
+        val = 0
+    print("Bouton pressé, val =", val)
 
-LED.value(1)
+# Attachement de l'interruption à la pression du bouton
+button.irq(trigger=Pin.IRQ_FALLING, handler=bouton_presse)
 
-x=1
-while val <3:
-    print(val)
-    if (val == 1 or littel == True) and val<=1:
-        if littel != True:
-            val =0            
-            littel = True
-            greater = False
-            x=1
-        LED.value(1)
-        sleep(1)
-    else:
-        littel = False
-        if val == 2 or greater == True:
-            print("valeur de greater" , greater)
-            if greater != True:
-                val=0
-                x=0.3
-            littel = False
-            greater =True
-            val =0
-            LED.value(1)
-            sleep(0.3)
-    LED.value(0)
-    sleep(x)
-val=0  
+def Sequence_clignotement(temps):
+        led.value(1)
+        sleep(temps)  # 1 seconde allumée
+        led.value(0)
+        sleep(temps)  # 1 seconde éteinte (clignotement à 0.5 Hz)
 
-            
-  
-  
-  
- 
+while True:
+    if val == 0:  # Si le bouton a été pressé 3 fois (LED éteinte)
+        led.value(0)
+    elif val == 1:  # Si le bouton a été pressé 1 fois (clignotement lent)
+        Sequence_clignotement(1) # 1 seconde éteinte (clignotement à 0.5 Hz)
+    elif val == 2:  # Si le bouton a été pressé 2 fois (clignotement rapide)
+        Sequence_clignotement(0.3) # 0.3 seconde éteinte (clignotement plus rapide)
