@@ -20,12 +20,12 @@ Ce projet utilise un **Raspberry Pi Pico** avec MicroPython pour contrôler une 
 ```mermaid
 graph TD;
     Start[Début] --> B[Attente d'une pression du bouton];
-    B --> C[Nombre de pressions du bouton]
-    C -->|0 pressions| D[LED éteinte];
-    C -->|1 pression| E[Clignotement lent (1 Hz)];
-    C -->|2 pressions| F[Clignotement rapide (3.33 Hz)];
-    C -->|3 pressions| G[Réinitialisation];
-    G --> B
-    E --> B
-    F --> B
-    D --> B
+    B -->|0 pressions| D[LED éteinte];
+    B -->|1 pression| E[Clignotement lent (1 Hz)];
+    B -->|2 pressions| F[Clignotement rapide (3.33 Hz)];
+    B -->|3 pressions| G[Réinitialisation];
+    G --> B;
+    E --> B;
+    F --> B;
+    D --> B;
+

@@ -48,7 +48,8 @@ graph TD;
     Compare -->|Temp <= Consigne + 3°C| NormalState[Alarme Désactivée];
     
     TriggerAlarm --> UpdateLCD[Mise à jour de l'écran LCD avec "ALARM"];
-    NormalState --> UpdateLCD;
+    NormalState --> UpdateLCD[Mise à jour de l'écran LCD avec Température et Consigne];
     
     UpdateLCD --> Loop[Attendre et Répéter];
     Loop --> ReadTemperature;
+
