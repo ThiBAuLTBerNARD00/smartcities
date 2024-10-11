@@ -47,7 +47,7 @@ graph TD;
     Compare -->|Temp > Consigne + 3°C| TriggerAlarm[Déclencher Alarme et Clignotement];
     Compare -->|Temp <= Consigne + 3°C| NormalState[Alarme Désactivée];
     
-    TriggerAlarm --> UpdateLCD[Mise à jour de l'écran LCD avec "ALARM"];
+    TriggerAlarm --> UpdateLCD[Mise à jour de l'écran LCD avec 'ALARM'];
     NormalState --> UpdateLCD[Mise à jour de l'écran LCD avec Température et Consigne];
     
     UpdateLCD --> Loop[Attendre et Répéter];

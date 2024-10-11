@@ -21,8 +21,8 @@ Ce projet utilise un **Raspberry Pi Pico** avec MicroPython pour contrôler une 
 graph TD;
     Start[Début] --> B[Attente d'une pression du bouton];
     B -->|0 pressions| D[LED éteinte];
-    B -->|1 pression| E[Clignotement lent (1 Hz)];
-    B -->|2 pressions| F[Clignotement rapide (3.33 Hz)];
+    B -->|1 pression| E[Clignotement lent 1 Hz];
+    B -->|2 pressions| F[Clignotement rapide 3.33 Hz];
     B -->|3 pressions| G[Réinitialisation];
     G --> B;
     E --> B;
