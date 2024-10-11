@@ -1,7 +1,7 @@
 from ws2812 import WS2812
 from machine import I2C,Pin,ADC
 import utime
-
+import random
 
 BLACK = (0,0,0)
 RED = (255,0,0)
@@ -26,23 +26,28 @@ while True:
     for i in range (1000):
         noise = Sound_sensor.read_u16()/256
         average += noise
-    noise = average/1000
+    noise = int(average/1000)
+    noise1 = 0
     print(noise)
     if ligth <80:
         led.pixels_fill(WITHE)
         led.pixels_show()
         utime.sleep(0.1)
     else:
-        
-        if noise > 25 and noise <50:
-            led.pixels_fill(YELLOW)
+        if noise != noise1 and noise>50:
+            led.pixels_fill(random.choice(COLORS))
             led.pixels_show()
             utime.sleep(1)
-        if noise <25:
-            led.pixels_fill(GREEN)
-            led.pixels_show()
-            utime.sleep(1)
-        if noise >50:
-            led.pixels_fill(RED)
-            led.pixels_show()
-            utime.sleep(1)
+        #if noise > 35 and noise <50:
+        #    led.pixels_fill(YELLOW)
+        #    led.pixels_show()
+        #    utime.sleep(1)
+        #if noise <35:
+        #    led.pixels_fill(GREEN)
+        #    led.pixels_show()
+        #    utime.sleep(1)
+        #if noise >55:
+        #    led.pixels_fill(RED)
+        #    led.pixels_show()
+        #    utime.sleep(1)
+        #led.rainbow_cycle(0)
