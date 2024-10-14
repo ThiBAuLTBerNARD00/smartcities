@@ -18,26 +18,49 @@ led = WS2812(18,1)#pin and led count
 Light_sensor = ADC(0)
 Sound_sensor = ADC(1)
 
-while True:
-    average =0
-    ligth =Light_sensor.read_u16()/256
-    #noise = Sound_sensor.read_u16()/256
-    
+def detect_sound():
+    noise = 0
+    average = 0
     for i in range (1000):
         noise = Sound_sensor.read_u16()/256
         average += noise
     noise = int(average/1000)
-    noise1 = 0
-    print(noise)
-    if ligth <80:
-        led.pixels_fill(WITHE)
+    print("noise",noise)
+    return noise
+
+def detect_Pic(moyenne):
+    noise = 0
+    average = 0
+    print("moyenne",moyenne)
+    for i in range (10):
+        noise = Sound_sensor.read_u16()/256
+        average += noise
+    
+    son= int(average/10)  
+    print(son)
+    if son > (moyenne+10):
+        led.pixels_fill(random.choice(COLORS))
         led.pixels_show()
-        utime.sleep(0.1)
-    else:
-        if noise != noise1 and noise>50:
-            led.pixels_fill(random.choice(COLORS))
-            led.pixels_show()
-            utime.sleep(1)
+        utime.sleep(1)
+    
+
+while True:
+    
+    ligth =Light_sensor.read_u16()/256
+    #noise = Sound_sensor.read_u16()/256
+    moyenne  = detect_sound()
+    utime.sleep(1)
+    detect_Pic(moyenne)
+    
+    #if ligth <80:
+        #led.pixels_fill(WITHE)
+        #led.pixels_show()
+        #utime.sleep(0.1)
+    #else:
+        #if noise != noise1 and noise>average1+10:
+            #led.pixels_fill(random.choice(COLORS))
+            #led.pixels_show()
+            #utime.sleep(1)
         #if noise > 35 and noise <50:
         #    led.pixels_fill(YELLOW)
         #    led.pixels_show()
